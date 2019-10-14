@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -20,15 +21,19 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.R;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.adapter.LoaispApdapter;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Loaisp;
 
 public class MainActivity extends AppCompatActivity {
 
     DrawerLayout mDrawerLayout;
     Toolbar mToolbar;
     ViewFlipper mViewFlipper;
-    RecyclerView mRecyclerViewmanhinhchinh;
+    RecyclerView mRecyclerViewmanhinhchinh, mRecyclerViewMenu;
     NavigationView mNavigationView;
-    ListView mListViewmanhinhchinh;
+
+    ArrayList<Loaisp> mangLoaiSp;
+    LoaispApdapter loaispApdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +84,14 @@ public class MainActivity extends AppCompatActivity {
         mViewFlipper = findViewById(R.id.viewflipper);
         mRecyclerViewmanhinhchinh = findViewById(R.id.recyclerview);
         mNavigationView = findViewById(R.id.navigationview);
-        mListViewmanhinhchinh = findViewById(R.id.listviewmanhinhchinh);
+        mRecyclerViewMenu = findViewById(R.id.recyclerviewMenu);
         mDrawerLayout = findViewById(R.id.drawerlayout);
+
+        mangLoaiSp = new ArrayList<>();
+        mangLoaiSp.add(new Loaisp(1,"thinh","asd"));
+        mangLoaiSp.add(new Loaisp(2,"thinh","asd"));
+        loaispApdapter = new LoaispApdapter(mangLoaiSp, MainActivity.this);   //
+        mRecyclerViewMenu.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerViewMenu.setAdapter(loaispApdapter);
     }
 }

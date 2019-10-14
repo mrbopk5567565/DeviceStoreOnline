@@ -51,11 +51,16 @@
             android:layout_gravity="start"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ListView
-                android:id="@+id/listviewmanhinhchinh"
+<!--            <ListView-->
+<!--                android:id="@+id/listviewmanhinhchinh"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
+<!--            </ListView>-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerviewMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            </ListView>
+            </androidx.recyclerview.widget.RecyclerView>
         </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
 
