@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.adapter.SanphamApdater;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.api.modelapi.ResponseSanpham;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Sanpham;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.util.OnItemClickListener;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.R;
@@ -31,6 +33,7 @@ import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.api.modelapi.Respo
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Loaisp;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.util.CheckConnection;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.viewmodel.LoaispViewModel;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.viewmodel.SanphamViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     LoaispApdapter loaispApdapter;
 
     LoaispViewModel loaispViewModel;
+    SanphamViewModel sanphamViewModel;
 
     int id = 0;
     String tenLoaisp = "";
@@ -51,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Sanpham> mangSanpham;
     SanphamApdater sanphamApdater;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,15 +69,38 @@ public class MainActivity extends AppCompatActivity {
             ActionBar();
             ActionViewFlipper();
             getDuLieuLoaiSanPham();
-            getDuLieuSanPham();
+            getDuLieuSanPhamMoiNhat();
         } else {
             CheckConnection.showToast_Short(MainActivity.this,"Ban hay kiem tra lai ket noi");
         }
 
     }
 
-    private void getDuLieuSanPham() {
-
+    private void getDuLieuSanPhamMoiNhat() {
+        sanphamViewModel = new SanphamViewModel();
+        sanphamViewModel.checkSanpham().observe(MainActivity.this, new Observer<List<ResponseSanpham>>() {
+            @Override
+            public void onChanged(List<ResponseSanpham> responseSanphams) {
+                if (responseSanphams != null){
+                    int id_1 = 0;
+                    String tensp = "";
+                    int giasp = 0;
+                    String hinhanhsp = "";
+                    String motasp = "";
+                    int idsp = 0;
+                    for(int i = 0; i < responseSanphams.size();i++){
+                        id_1 = responseSanphams.get(i).getId();
+                        tensp = responseSanphams.get(i).getTensp();
+                        giasp = responseSanphams.get(i).getGiasp();
+                        hinhanhsp = responseSanphams.get(i).getHinhanhsp();
+                        motasp = responseSanphams.get(i).getMotasp();
+                        idsp = responseSanphams.get(i).getIdsp();
+                        mangSanpham.add(new Sanpham(id_1,tensp,giasp,hinhanhsp,motasp,idsp));
+                        sanphamApdater.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
     }
 
     private void getDuLieuLoaiSanPham() {
@@ -155,7 +184,9 @@ public class MainActivity extends AppCompatActivity {
         // cho recyclerview san pham moi nhat
         mangSanpham = new ArrayList<>();
         sanphamApdater = new SanphamApdater(mangSanpham, MainActivity.this);
-        mRecyclerViewmanhinhchinh.setLayoutManager(new LinearLayoutManager(this));
+        // setHasFixedSize : set view giong dang gridview
+        mRecyclerViewmanhinhchinh.setHasFixedSize(true);
+        mRecyclerViewmanhinhchinh.setLayoutManager(new GridLayoutManager(MainActivity.this,2));
         mRecyclerViewmanhinhchinh.setAdapter(sanphamApdater);
     }
 }

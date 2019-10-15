@@ -13,7 +13,7 @@ private int id;
 private String tensp;
 @SerializedName("giasp")
 @Expose
-private String giasp;
+private int giasp;
 @SerializedName("hinhanhsp")
 @Expose
 private String hinhanhsp;
@@ -22,7 +22,7 @@ private String hinhanhsp;
 private String motasp;
 @SerializedName("idsp")
 @Expose
-private String idsp;
+private int idsp;
 
 public int getId() {
 return id;
@@ -40,11 +40,11 @@ public void setTensp(String tensp) {
 this.tensp = tensp;
 }
 
-public String getGiasp() {
+public int getGiasp() {
 return giasp;
 }
 
-public void setGiasp(String giasp) {
+public void setGiasp(int giasp) {
 this.giasp = giasp;
 }
 
@@ -64,11 +64,11 @@ public void setMotasp(String motasp) {
 this.motasp = motasp;
 }
 
-public String getIdsp() {
+public int getIdsp() {
 return idsp;
 }
 
-public void setIdsp(String idsp) {
+public void setIdsp(int idsp) {
 this.idsp = idsp;
 }
 
