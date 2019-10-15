@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             Glide.with(getApplicationContext())
                     .load(mangQuangCao.get(i))
                     .into(imageView);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER); // or FIT_XY
             mViewFlipper.addView(imageView);
         }
         mViewFlipper.setFlipInterval(5000);
