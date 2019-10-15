@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,16 +14,22 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.OnItemClickListener;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.R;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.adapter.LoaispApdapter;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.api.modelapi.ResponseLoaisp;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Loaisp;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.util.CheckConnection;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.viewmodel.LoaispViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,14 +42,55 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Loaisp> mangLoaiSp;
     LoaispApdapter loaispApdapter;
 
+    LoaispViewModel loaispViewModel;
+
+    int id = 0;
+    String tenLoaisp = "";
+    String hinhAnhLoaisp = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         AnhXa();
-        ActionBar();
-        ActionViewFlipper();
+        if (CheckConnection.isNetworkAvailable(MainActivity.this)){
+            ActionBar();
+            ActionViewFlipper();
+            getDuLieuLoaiSanPham();
+        } else {
+            CheckConnection.showToast_Short(MainActivity.this,"Ban hay kiem tra lai ket noi");
+        }
+
+    }
+
+    private void getDuLieuLoaiSanPham() {
+
+        loaispViewModel = new LoaispViewModel();
+        loaispViewModel.checkLoaisp().observe(MainActivity.this, new Observer<List<ResponseLoaisp>>() {
+            @Override
+            public void onChanged(List<ResponseLoaisp> responseLoaisps) {
+                if (responseLoaisps != null){
+                    for (int i = 0; i < responseLoaisps.size(); i++){
+                        id = responseLoaisps.get(i).getId();
+                        tenLoaisp = responseLoaisps.get(i).getTenloaisp();
+                        hinhAnhLoaisp = responseLoaisps.get(i).getHinhanhloaisp();
+                        mangLoaiSp.add(new Loaisp(id,tenLoaisp,hinhAnhLoaisp));
+                        loaispApdapter.notifyDataSetChanged();
+                    }
+                    mangLoaiSp.add(3,new Loaisp(3,"thinh tien thi","https://image.flaticon.com/icons/svg/37/37557.svg"));
+                }
+            }
+        });
+
+        // su kien click item cho recyclerview menu
+        ((LoaispApdapter)mRecyclerViewMenu.getAdapter()).setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClickItem(View view, int position) {
+                Toast.makeText(MainActivity.this, mangLoaiSp.get(position).getTenLoaiSp(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void ActionViewFlipper() {
@@ -52,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         mangQuangCao.add("https://cdn.tgdd.vn/Products/Images/42/182153/oppo-f9-tim-400x460.png");
         mangQuangCao.add("https://cdn.tgdd.vn/Products/Images/42/192003/samsung-galaxy-a9-2018-blue-400x460.png");
         for (int i = 0; i < mangQuangCao.size(); i++) {
-            ImageView imageView = new ImageView(getApplicationContext());
+            ImageView imageView = new ImageView(MainActivity.this);
             Glide.with(getApplicationContext())
                     .load(mangQuangCao.get(i))
                     .into(imageView);
@@ -88,10 +136,11 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawerlayout);
 
         mangLoaiSp = new ArrayList<>();
-        mangLoaiSp.add(new Loaisp(1,"thinh","asd"));
-        mangLoaiSp.add(new Loaisp(2,"thinh","asd"));
-        loaispApdapter = new LoaispApdapter(mangLoaiSp, MainActivity.this);   //
+        mangLoaiSp.add(0,new Loaisp(0, "Trang chinh", "https://www.theaa.ie/blog/wp-content/uploads/2013/10/Home-Pic-600x320.jpg"));
+        loaispApdapter = new LoaispApdapter(mangLoaiSp, MainActivity.this);
         mRecyclerViewMenu.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewMenu.setAdapter(loaispApdapter);
+//
+
     }
 }
