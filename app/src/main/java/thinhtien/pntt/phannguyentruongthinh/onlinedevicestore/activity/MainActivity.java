@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -23,7 +22,9 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
-import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.OnItemClickListener;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.adapter.SanphamApdater;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Sanpham;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.util.OnItemClickListener;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.R;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.adapter.LoaispApdapter;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.api.modelapi.ResponseLoaisp;
@@ -48,24 +49,32 @@ public class MainActivity extends AppCompatActivity {
     String tenLoaisp = "";
     String hinhAnhLoaisp = "";
 
+    ArrayList<Sanpham> mangSanpham;
+    SanphamApdater sanphamApdater;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         AnhXa();
+        // kiểm tra kết nối Internet
         if (CheckConnection.isNetworkAvailable(MainActivity.this)){
             ActionBar();
             ActionViewFlipper();
             getDuLieuLoaiSanPham();
+            getDuLieuSanPham();
         } else {
             CheckConnection.showToast_Short(MainActivity.this,"Ban hay kiem tra lai ket noi");
         }
 
     }
 
-    private void getDuLieuLoaiSanPham() {
+    private void getDuLieuSanPham() {
 
+    }
+
+    private void getDuLieuLoaiSanPham() {
         loaispViewModel = new LoaispViewModel();
         loaispViewModel.checkLoaisp().observe(MainActivity.this, new Observer<List<ResponseLoaisp>>() {
             @Override
@@ -79,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         loaispApdapter.notifyDataSetChanged();
                     }
                     mangLoaiSp.add(3,new Loaisp(3,"thinh tien thi","https://image.flaticon.com/icons/svg/37/37557.svg"));
+                    mangLoaiSp.add(4,new Loaisp(4,"Tong tin","R.drawable.common_full_open_on_phone"));
                 }
             }
         });
@@ -135,12 +145,17 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerViewMenu = findViewById(R.id.recyclerviewMenu);
         mDrawerLayout = findViewById(R.id.drawerlayout);
 
+        // cho recyclerview menu
         mangLoaiSp = new ArrayList<>();
         mangLoaiSp.add(0,new Loaisp(0, "Trang chinh", "https://www.theaa.ie/blog/wp-content/uploads/2013/10/Home-Pic-600x320.jpg"));
         loaispApdapter = new LoaispApdapter(mangLoaiSp, MainActivity.this);
         mRecyclerViewMenu.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewMenu.setAdapter(loaispApdapter);
-//
 
+        // cho recyclerview san pham moi nhat
+        mangSanpham = new ArrayList<>();
+        sanphamApdater = new SanphamApdater(mangSanpham, MainActivity.this);
+        mRecyclerViewmanhinhchinh.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerViewmanhinhchinh.setAdapter(sanphamApdater);
     }
 }

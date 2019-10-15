@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.OnItemClickListener;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.util.OnItemClickListener;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.R;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Loaisp;
 
@@ -46,8 +46,8 @@ public class LoaispApdapter extends RecyclerView.Adapter<LoaispApdapter.MenuHold
         holder.txtLoaisp.setText(mangLoaiSanPham.get(position).getTenLoaiSp());
         Glide.with(context)
                 .load(mangLoaiSanPham.get(position).getHinhAnhLoaiSp())
-//                .placeholder(R.drawable.no_image)
-//                .error(R.drawable.ic_image_error)
+                .placeholder(R.drawable.no_image)
+                .error(R.drawable.ic_image_error)
                 .into(holder.imgLoaisp);
     }
 

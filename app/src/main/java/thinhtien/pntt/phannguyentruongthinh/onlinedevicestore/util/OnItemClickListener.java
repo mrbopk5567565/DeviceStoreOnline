@@ -1,4 +1,4 @@
-package thinhtien.pntt.phannguyentruongthinh.onlinedevicestore;
+package thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.util;
 
 import android.view.View;
 
