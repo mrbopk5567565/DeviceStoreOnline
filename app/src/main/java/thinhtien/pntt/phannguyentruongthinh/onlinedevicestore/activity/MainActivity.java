@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -23,6 +27,10 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.fragment.ContactFragment;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.fragment.InfoFragment;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.fragment.LaptopFragment;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.fragment.MobileFragment;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.adapter.SanphamApdater;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.api.modelapi.ResponseSanpham;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Sanpham;
@@ -56,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Sanpham> mangSanpham;
     SanphamApdater sanphamApdater;
 
-
+    FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +78,78 @@ public class MainActivity extends AppCompatActivity {
             ActionViewFlipper();
             getDuLieuLoaiSanPham();
             getDuLieuSanPhamMoiNhat();
+            CatchOnItemMenu();
         } else {
-            CheckConnection.showToast_Short(MainActivity.this,"Ban hay kiem tra lai ket noi");
+            CheckConnection.showToast_Short(MainActivity.this,"Bạn hãy kiểm tra lại kết nối");
         }
 
+    }
+
+    private void CatchOnItemMenu() {
+        ((LoaispApdapter)mRecyclerViewMenu.getAdapter()).setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClickItem(View view, int position) {
+                Toast.makeText(MainActivity.this, mangLoaiSp.get(position).getTenLoaiSp(), Toast.LENGTH_SHORT).show();
+                switch (position){
+                    case 0:
+                        if (CheckConnection.isNetworkAvailable(MainActivity.this)){
+                            Intent intent = new Intent(MainActivity.this,MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            CheckConnection.showToast_Short(MainActivity.this,"Bạn hãy kiểm tra lại kết nối" );
+                        }
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case 1:
+                        if (CheckConnection.isNetworkAvailable(MainActivity.this)){
+                            Intent intent = new Intent(MainActivity.this, MobileActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("idsp",mangLoaiSp.get(position).getId());
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+//                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                            MobileFragment mobileFragment = new MobileFragment();
+//                            mobileFragment.setArguments(bundle);
+//                            fragmentTransaction.add(R.id.moblieContainer,mobileFragment);
+//                            fragmentTransaction.commit();
+                        } else {
+                            CheckConnection.showToast_Short(MainActivity.this,"Bạn hãy kiểm tra lại kết nối" );
+                        }
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case 2:
+                        if (CheckConnection.isNetworkAvailable(MainActivity.this)){
+                            Intent intent = new Intent(MainActivity.this, LaptopActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("idsp",mangLoaiSp.get(position).getId());
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        } else {
+                            CheckConnection.showToast_Short(MainActivity.this,"Bạn hãy kiểm tra lại kết nối" );
+                        }
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case 3:
+                        if (CheckConnection.isNetworkAvailable(MainActivity.this)){
+                            Intent intent = new Intent(MainActivity.this,ContactActivity.class);
+                            startActivity(intent);
+                        } else {
+                            CheckConnection.showToast_Short(MainActivity.this,"Bạn hãy kiểm tra lại kết nối" );
+                        }
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case 4:
+                        if (CheckConnection.isNetworkAvailable(MainActivity.this)){
+                            Intent intent = new Intent(MainActivity.this, infomationActivity.class);
+                            startActivity(intent);
+                        } else {
+                            CheckConnection.showToast_Short(MainActivity.this,"Bạn hãy kiểm tra lại kết nối" );
+                        }
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                }
+            }
+        });
     }
 
     private void getDuLieuSanPhamMoiNhat() {
@@ -116,19 +192,18 @@ public class MainActivity extends AppCompatActivity {
                         mangLoaiSp.add(new Loaisp(id,tenLoaisp,hinhAnhLoaisp));
                         loaispApdapter.notifyDataSetChanged();
                     }
-                    mangLoaiSp.add(3,new Loaisp(3,"thinh tien thi","https://image.flaticon.com/icons/svg/37/37557.svg"));
-                    mangLoaiSp.add(4,new Loaisp(4,"Tong tin","R.drawable.common_full_open_on_phone"));
+                    mangLoaiSp.add(3,new Loaisp(3,"Contact","http://192.168.1.103:8888/devicestore/outline_home_black_48dp.png"));
+                    mangLoaiSp.add(4,new Loaisp(4,"Infomation","R.drawable.common_full_open_on_phone"));
                 }
             }
         });
 
-        // su kien click item cho recyclerview menu
-        ((LoaispApdapter)mRecyclerViewMenu.getAdapter()).setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onClickItem(View view, int position) {
-                Toast.makeText(MainActivity.this, mangLoaiSp.get(position).getTenLoaiSp(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        // su kien click item cho recyclerview menu
+//        ((LoaispApdapter)mRecyclerViewMenu.getAdapter()).setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onClickItem(View view, int position) {
+//            }
+//        });
 
     }
 
@@ -176,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
 
         // cho recyclerview menu
         mangLoaiSp = new ArrayList<>();
-        mangLoaiSp.add(0,new Loaisp(0, "Trang chinh", "https://www.theaa.ie/blog/wp-content/uploads/2013/10/Home-Pic-600x320.jpg"));
+        mangLoaiSp.add(0,new Loaisp(0, "Home", "https://www.theaa.ie/blog/wp-content/uploads/2013/10/Home-Pic-600x320.jpg")); //
         loaispApdapter = new LoaispApdapter(mangLoaiSp, MainActivity.this);
         mRecyclerViewMenu.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewMenu.setAdapter(loaispApdapter);
