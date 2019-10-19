@@ -41,4 +41,20 @@ public class SanphamRepository {
         });
         return mutableLiveData;
     }
+
+    public MutableLiveData<List<ResponseSanpham>> getDataLoaiSanPham(String page, int idsp){
+        final MutableLiveData<List<ResponseSanpham>> mutableLiveData = new MutableLiveData<>();
+        responseapi.getLoaiSanPham(page,idsp).enqueue(new Callback<List<ResponseSanpham>>() {
+            @Override
+            public void onResponse(Call<List<ResponseSanpham>> call, Response<List<ResponseSanpham>> response) {
+                mutableLiveData.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<ResponseSanpham>> call, Throwable t) {
+
+            }
+        });
+        return mutableLiveData;
+    }
 }

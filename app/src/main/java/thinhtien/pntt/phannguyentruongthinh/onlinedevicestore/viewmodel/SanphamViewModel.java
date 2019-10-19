@@ -13,4 +13,8 @@ public class SanphamViewModel {
     public MutableLiveData<List<ResponseSanpham>> checkSanpham(){
         return SanphamRepository.getInstance().getDataSanpham();
     }
+
+    public MutableLiveData<List<ResponseSanpham>> checkLoaiSanPham(String page,int idsp){
+        return SanphamRepository.getInstance().getDataLoaiSanPham(page, idsp);
+    }
 }

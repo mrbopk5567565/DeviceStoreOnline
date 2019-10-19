@@ -192,8 +192,8 @@ public class MainActivity extends AppCompatActivity {
                         mangLoaiSp.add(new Loaisp(id,tenLoaisp,hinhAnhLoaisp));
                         loaispApdapter.notifyDataSetChanged();
                     }
-                    mangLoaiSp.add(3,new Loaisp(3,"Contact","http://192.168.1.103:8888/devicestore/outline_home_black_48dp.png"));
-                    mangLoaiSp.add(4,new Loaisp(4,"Infomation","R.drawable.common_full_open_on_phone"));
+                    mangLoaiSp.add(3,new Loaisp(3,"Contact","http://192.168.1.103:8888/devicestore/image/baseline_contacts_black_48dp.png"));
+                    mangLoaiSp.add(4,new Loaisp(4,"Infomation","http://192.168.1.103:8888/devicestore/image/baseline_info_black_48dp.png"));
                 }
             }
         });
@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
 
         // cho recyclerview menu
         mangLoaiSp = new ArrayList<>();
-        mangLoaiSp.add(0,new Loaisp(0, "Home", "https://www.theaa.ie/blog/wp-content/uploads/2013/10/Home-Pic-600x320.jpg")); //
+        mangLoaiSp.add(0,new Loaisp(0, "Home", "http://192.168.1.103:8888/devicestore/image/baseline_home_black_48dp.png")); //https://www.theaa.ie/blog/wp-content/uploads/2013/10/Home-Pic-600x320.jpg
         loaispApdapter = new LoaispApdapter(mangLoaiSp, MainActivity.this);
         mRecyclerViewMenu.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewMenu.setAdapter(loaispApdapter);

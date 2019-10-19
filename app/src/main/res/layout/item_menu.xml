@@ -24,7 +24,7 @@
                 android:layout_height="match_parent">
                 <TextView
                     android:layout_margin="5dp"
-                    android:textColor="#FCFCFC"
+                    android:textColor="#69BFE3"
                     android:textSize="20sp"
                     android:text="Loai san pham"
                     android:id="@+id/textviewLoaisp"
