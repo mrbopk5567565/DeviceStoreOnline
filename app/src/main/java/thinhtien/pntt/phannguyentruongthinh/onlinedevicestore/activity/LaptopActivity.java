@@ -24,7 +24,7 @@ public class LaptopActivity extends AppCompatActivity {
         onListenId.onChangeId(id_laptop);
     }
 
-    public void setOnListenId(OnListenId onListenId){
+    public void setListenId(OnListenId onListenId){
         this.onListenId = onListenId;
     }
 }

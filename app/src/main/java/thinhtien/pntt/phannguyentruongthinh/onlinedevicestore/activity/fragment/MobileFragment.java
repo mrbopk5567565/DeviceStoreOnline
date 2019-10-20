@@ -78,7 +78,7 @@ public class MobileFragment extends Fragment {
 
     private void GetData(String page, int id_moblie) {
         loaispViewModel = new SanphamViewModel();
-        loaispViewModel.checkLoaiSanPham(page, id_moblie).observe(getActivity(), new Observer<List<ResponseSanpham>>() {
+        loaispViewModel.checkLoaiSanPhamMobile(page, id_moblie).observe(getActivity(), new Observer<List<ResponseSanpham>>() {
             @Override
             public void onChanged(List<ResponseSanpham> responseSanphams) {
                 if (responseSanphams != null){

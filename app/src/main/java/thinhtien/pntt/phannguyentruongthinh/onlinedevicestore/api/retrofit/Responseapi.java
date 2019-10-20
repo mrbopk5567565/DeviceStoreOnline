@@ -21,5 +21,9 @@ public interface Responseapi {
 
     @FormUrlEncoded
     @POST("getsanpham.php")
-    Call<List<ResponseSanpham>> getLoaiSanPham(@Query ("page") String page,@Field("idsp") int idsp);
+    Call<List<ResponseSanpham>> getLoaiSanPhamMobile(@Query ("page") String page,@Field("idsp") int idsp);
+
+    @FormUrlEncoded
+    @POST("getsanpham.php")
+    Call<List<ResponseSanpham>> getLoaiSanPhamLaptop(@Query("page") String page, @Field("idsp") int idsp);
 }

@@ -14,7 +14,11 @@ public class SanphamViewModel {
         return SanphamRepository.getInstance().getDataSanpham();
     }
 
-    public MutableLiveData<List<ResponseSanpham>> checkLoaiSanPham(String page,int idsp){
-        return SanphamRepository.getInstance().getDataLoaiSanPham(page, idsp);
+    public MutableLiveData<List<ResponseSanpham>> checkLoaiSanPhamMobile(String page,int idsp){
+        return SanphamRepository.getInstance().getDataLoaiSanPhamMobile(page, idsp);
+    }
+
+    public MutableLiveData<List<ResponseSanpham>> checkLoaiSanPhamLaptop(String page,int idsp){
+        return SanphamRepository.getInstance().getDataLoaiSanPhamlaptop(page, idsp);
     }
 }

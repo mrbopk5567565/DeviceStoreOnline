@@ -1,6 +1,7 @@
 package thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.R;
@@ -45,7 +47,10 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.LaptopHold
     @Override
     public void onBindViewHolder(@NonNull LaptopHolder holder, int position) {
         holder.txtNameLaptop.setText(mangSanphamLaptop.get(position).getTensp());
-        holder.txtPriceLaptop.setText(mangSanphamLaptop.get(position).getGiasp());
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        holder.txtPriceLaptop.setText("Giá : " + decimalFormat.format(mangSanphamLaptop.get(position).getGiasp()) + " Đ");
+        holder.txtDesLaptop.setMaxLines(2);
+        holder.txtDesLaptop.setEllipsize(TextUtils.TruncateAt.END);
         holder.txtDesLaptop.setText(mangSanphamLaptop.get(position).getMotasp());
         Glide.with(context)
                 .load(mangSanphamLaptop.get(position).getHinhanhsp())
