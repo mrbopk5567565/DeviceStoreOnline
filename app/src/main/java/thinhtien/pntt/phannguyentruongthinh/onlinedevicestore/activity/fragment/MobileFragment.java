@@ -4,6 +4,7 @@ package thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.fragment
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -41,27 +42,26 @@ public class MobileFragment extends Fragment {
     ArrayList<Sanpham> mangMobile;
     int page = 1;
     SanphamViewModel loaispViewModel;
+    View viewfooter;
+    Boolean isLoading = false;
+    int firstItem, visibleItem, totalItem;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_mobile, container, false);
-        toolbarmoblie = view.findViewById(R.id.toolbarMoblie);
-        recyclerViewMobile = view.findViewById(R.id.recyclerviewMobile);
-        mangMobile = new ArrayList<>();
-        moblieAdapter = new MoblieAdapter(mangMobile,getContext());
-        recyclerViewMobile.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerViewMobile.setAdapter(moblieAdapter);
+
+        Anhxa();
 
         if(CheckConnection.isNetworkAvailable(getActivity())){
-            GetIdLoaiSanPham();
             ActionToolbar();
             ((MobileActivity)getActivity()).setListenId(new OnListenId() {
                 @Override
                 public void onChangeId(Integer idsp) {
-                    GetData("1",idsp);
+                    GetData(String.valueOf(page),idsp);
                 }
             });
+            LoadMoreData();
         } else {
             CheckConnection.showToast_Short(getActivity(),"Xin kiểm tra lại kết nối");
             getActivity().finish();
@@ -69,6 +69,26 @@ public class MobileFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void LoadMoreData() {
+        recyclerViewMobile.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                visibleItem = (new LinearLayoutManager(getActivity())).getChildCount();
+                firstItem = (new LinearLayoutManager(getActivity())).findFirstVisibleItemPosition();
+                totalItem = (new LinearLayoutManager(getActivity())).getItemCount();
+                if (firstItem + visibleItem == totalItem && totalItem != 0 && isLoading == false){
+
+                }
+            }
+        });
     }
 
     @Override
@@ -114,8 +134,14 @@ public class MobileFragment extends Fragment {
         });
     }
 
-    private void GetIdLoaiSanPham() {
-
+    private void Anhxa() {
+        toolbarmoblie = view.findViewById(R.id.toolbarMoblie);
+        recyclerViewMobile = view.findViewById(R.id.recyclerviewMobile);
+        mangMobile = new ArrayList<>();
+        moblieAdapter = new MoblieAdapter(mangMobile,getContext());
+        recyclerViewMobile.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewMobile.setAdapter(moblieAdapter);
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        viewfooter = inflater.inflate(R.layout.progressbar,null);
     }
-
 }
