@@ -19,10 +19,9 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.appcompat.widget.SearchView
-
-        android:padding="2dp"
-        android:background="#a29bfe"
-        app:queryHint="search product"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_searchview"
+        app:queryHint="Search Mobile"
         android:layout_below="@+id/toolbarMoblie"
         android:id="@+id/search_mobile"
         android:layout_width="match_parent"

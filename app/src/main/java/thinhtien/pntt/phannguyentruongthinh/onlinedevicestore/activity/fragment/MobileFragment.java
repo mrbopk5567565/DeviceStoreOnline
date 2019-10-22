@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -58,6 +59,7 @@ public class MobileFragment extends Fragment {
     ProgressBar progressBar;
     int firstItem, visibleItem, totalItem;
     LinearLayoutManager linearLayoutManager;
+    SearchView searchView;
 //    mHandler mHandler;
 
     @Override
@@ -76,6 +78,7 @@ public class MobileFragment extends Fragment {
                     GetData(String.valueOf(page),idsp);
                 }
             });
+            SearchMobile();
             LoadMoreData();
         } else {
             CheckConnection.showToast_Short(getActivity(),"Xin kiểm tra lại kết nối");
@@ -84,6 +87,21 @@ public class MobileFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void SearchMobile() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ((MoblieAdapter)recyclerViewMobile.getAdapter()).getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 
     private void LoadMoreData() {
@@ -205,6 +223,7 @@ public class MobileFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressbarMobile);
         linearLayoutManager = (LinearLayoutManager) recyclerViewMobile.getLayoutManager();
         loaispViewModel = new SanphamViewModel();
+        searchView =  view.findViewById(R.id.search_mobile);
     }
 
 //    public class mHandler extends Handler{
