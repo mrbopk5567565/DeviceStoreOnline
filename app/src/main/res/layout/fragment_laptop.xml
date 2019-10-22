@@ -7,7 +7,7 @@
     tools:context=".activity.fragment.LaptopFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:background="#3498db"
+        android:background="#69BFE3"
         app:titleTextColor="#FFFFFF"
         app:title="Laptop"
         android:id="@+id/toolbarLaptop"
