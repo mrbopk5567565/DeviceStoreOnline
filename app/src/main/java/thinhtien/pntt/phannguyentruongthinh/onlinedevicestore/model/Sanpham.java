@@ -1,6 +1,8 @@
 package thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model;
 
-public class Sanpham {
+import java.io.Serializable;
+
+public class Sanpham implements Serializable {
     private int id;
     private String tensp;
     private int giasp;

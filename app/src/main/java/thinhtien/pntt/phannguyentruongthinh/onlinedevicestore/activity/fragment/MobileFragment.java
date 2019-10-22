@@ -28,12 +28,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.R;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.DetailProductActivity;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.MainActivity;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.MobileActivity;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.adapter.MoblieAdapter;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.api.modelapi.ResponseSanpham;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Sanpham;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.util.CheckConnection;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.util.OnItemClickListener;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.util.OnListenId;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.viewmodel.SanphamViewModel;
 
@@ -83,6 +85,17 @@ public class MobileFragment extends Fragment {
     }
 
     private void LoadMoreData() {
+
+        // bat su kien click vao item
+        ((MoblieAdapter)recyclerViewMobile.getAdapter()).setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClickItem(View view, int position) {
+                Intent intent = new Intent(getActivity(), DetailProductActivity.class);
+                intent.putExtra("InformationProduct", mangMobile.get(position));
+                startActivity(intent);
+            }
+        });
+
         recyclerViewMobile.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
