@@ -115,14 +115,14 @@ public class MobileFragment extends Fragment {
                 if ((firstItem + visibleItem == totalItem) && isLoading && limitData == false){
                     isLoading = false;
 //                    Log.d("BBB","1");
-                    fetchData();
+                    FetchData();
 //                    GetData(++page + "",1);
                 }
             }
         });
     }
 
-    private void fetchData() {
+    private void FetchData() {
         progressBar.setVisibility(View.VISIBLE);
 //        Log.d("BBB","2");
         new Handler().postDelayed(new Runnable() {
