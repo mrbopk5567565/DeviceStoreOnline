@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,9 +24,10 @@ import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.R;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Sanpham;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.util.OnItemClickListener;
 
-public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.LaptopHolder> {
+public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.LaptopHolder> implements Filterable {
 
     ArrayList<Sanpham> mangSanphamLaptop;
+    ArrayList<Sanpham> mangSanphamLaptopFiltered;
     Context context;
 
     OnItemClickListener onItemClickListener;
@@ -36,6 +39,7 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.LaptopHold
     public LaptopAdapter(ArrayList<Sanpham> mangSanphamLaptop, Context context) {
         this.mangSanphamLaptop = mangSanphamLaptop;
         this.context = context;
+        this.mangSanphamLaptopFiltered =  mangSanphamLaptop;
     }
 
     @NonNull
@@ -54,14 +58,14 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.LaptopHold
         // set linearlayout_animation_item_mobile
         holder.linearlayout_animation_item_laptop.setAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_scale_animation));
 
-        holder.txtNameLaptop.setText(mangSanphamLaptop.get(position).getTensp());
+        holder.txtNameLaptop.setText(mangSanphamLaptopFiltered.get(position).getTensp());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        holder.txtPriceLaptop.setText("Giá : " + decimalFormat.format(mangSanphamLaptop.get(position).getGiasp()) + " Đ");
+        holder.txtPriceLaptop.setText("Giá : " + decimalFormat.format(mangSanphamLaptopFiltered.get(position).getGiasp()) + " Đ");
         holder.txtDesLaptop.setMaxLines(2);
         holder.txtDesLaptop.setEllipsize(TextUtils.TruncateAt.END);
-        holder.txtDesLaptop.setText(mangSanphamLaptop.get(position).getMotasp());
+        holder.txtDesLaptop.setText(mangSanphamLaptopFiltered.get(position).getMotasp());
         Glide.with(context)
-                .load(mangSanphamLaptop.get(position).getHinhanhsp())
+                .load(mangSanphamLaptopFiltered.get(position).getHinhanhsp())
                 .placeholder(R.drawable.no_image)
                 .error(R.drawable.ic_image_error)
                 .into(holder.imgLaptop);
@@ -69,7 +73,38 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.LaptopHold
 
     @Override
     public int getItemCount() {
-        return mangSanphamLaptop != null ? mangSanphamLaptop.size() : 0;
+        return mangSanphamLaptopFiltered != null ? mangSanphamLaptopFiltered.size() : 0;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+
+                String key = charSequence.toString();
+                if (key.isEmpty()){
+                    mangSanphamLaptopFiltered = mangSanphamLaptop;
+                } else {
+                    ArrayList<Sanpham> mangFilterd = new ArrayList<>();
+                    for (Sanpham sp : mangSanphamLaptop){
+                        if (sp.getTensp().toLowerCase().contains(key.toLowerCase())){
+                            mangFilterd.add(sp);
+                        }
+                    }
+                    mangSanphamLaptopFiltered = mangFilterd;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mangSanphamLaptopFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mangSanphamLaptopFiltered = (ArrayList<Sanpham>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     class LaptopHolder extends RecyclerView.ViewHolder {

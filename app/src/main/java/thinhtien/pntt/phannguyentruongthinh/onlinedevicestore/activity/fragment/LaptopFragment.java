@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -52,6 +53,7 @@ public class LaptopFragment extends Fragment {
     int firstItem, visibleItem, totalItem;
     ProgressBar progressBar;
     int id_laptop = 0;
+    SearchView searchView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,12 +72,28 @@ public class LaptopFragment extends Fragment {
                     getData(page + "",idsp);
                 }
             });
+            SearchLaptop();
             LoadMoreData();
         } else {
             CheckConnection.showToast_Short(getActivity(),"Xin kiểm tra lại kết nối");
             getActivity().finish();
         }
         return view;
+    }
+
+    private void SearchLaptop() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ((LaptopAdapter)recyclerViewLaptop.getAdapter()).getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 
     private void LoadMoreData() {
@@ -175,5 +193,6 @@ public class LaptopFragment extends Fragment {
         loaiSPViewModel = new SanphamViewModel();
         linearLayoutManager = (LinearLayoutManager) recyclerViewLaptop.getLayoutManager();
         progressBar = view.findViewById(R.id.progressbarLaptop);
+        searchView = view.findViewById(R.id.search_laptop);
     }
 }

@@ -15,8 +15,18 @@
         android:layout_height="?attr/actionBarSize">
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.appcompat.widget.SearchView
+        app:queryHint="Search Laptop"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_searchview"
         android:layout_below="@+id/toolbarLaptop"
+        android:id="@+id/search_laptop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </androidx.appcompat.widget.SearchView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/search_laptop"
         android:id="@+id/recyclerviewLaptop"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
