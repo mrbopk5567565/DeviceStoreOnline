@@ -50,6 +50,7 @@ public class MobileFragment extends Fragment {
     MoblieAdapter moblieAdapter;
     ArrayList<Sanpham> mangMobile;
     int page = 1;
+    int id_mobile = 0;
     SanphamViewModel loaispViewModel;
     View viewfooter;
     Boolean isLoading = false;
@@ -71,6 +72,7 @@ public class MobileFragment extends Fragment {
             ((MobileActivity)getActivity()).setListenId(new OnListenId() {
                 @Override
                 public void onChangeId(Integer idsp) {
+                    id_mobile = idsp;
                     GetData(String.valueOf(page),idsp);
                 }
             });
@@ -137,7 +139,7 @@ public class MobileFragment extends Fragment {
 ////                        Log.d("BBB","4");
 //                    }
 //                });
-                GetData(++page + "",1);
+                GetData(++page + "",id_mobile);
                 progressBar.setVisibility(View.GONE);
             }
         }, 2000);

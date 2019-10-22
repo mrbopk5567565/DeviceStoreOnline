@@ -1,6 +1,7 @@
 package thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.R;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.DetailProductActivity;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.LaptopActivity;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.adapter.LaptopAdapter;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.api.modelapi.ResponseSanpham;
@@ -82,7 +84,9 @@ public class LaptopFragment extends Fragment {
         ((LaptopAdapter)recyclerViewLaptop.getAdapter()).setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onClickItem(View view, int position) {
-
+                Intent intent = new Intent(getActivity(), DetailProductActivity.class);
+                intent.putExtra("InformationProduct", mangLaptop.get(position));
+                startActivity(intent);
             }
         });
 

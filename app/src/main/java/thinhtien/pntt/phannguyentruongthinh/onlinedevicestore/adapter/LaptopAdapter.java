@@ -5,7 +5,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,6 +48,12 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.LaptopHold
 
     @Override
     public void onBindViewHolder(@NonNull LaptopHolder holder, int position) {
+
+        // setAnimation
+        holder.imgLaptop.setAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_transition_animation));
+        // set linearlayout_animation_item_mobile
+        holder.linearlayout_animation_item_laptop.setAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_scale_animation));
+
         holder.txtNameLaptop.setText(mangSanphamLaptop.get(position).getTensp());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         holder.txtPriceLaptop.setText("Giá : " + decimalFormat.format(mangSanphamLaptop.get(position).getGiasp()) + " Đ");
@@ -68,10 +76,11 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.LaptopHold
 
         ImageView imgLaptop;
         TextView txtNameLaptop, txtPriceLaptop, txtDesLaptop;
+        LinearLayout linearlayout_animation_item_laptop;
 
         public LaptopHolder(@NonNull final View itemView) {
             super(itemView);
-
+            linearlayout_animation_item_laptop = itemView.findViewById(R.id.linearlayout_animation_item_laptop);
             imgLaptop = itemView.findViewById(R.id.imageLaptop);
             txtNameLaptop = itemView.findViewById(R.id.textviewNameLaptop);
             txtPriceLaptop = itemView.findViewById(R.id.textviewPriceLaptop);

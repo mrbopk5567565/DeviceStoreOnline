@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".activity.fragment.MobileFragment">
 
+
+
     <androidx.appcompat.widget.Toolbar
         android:background="#3498db"
         app:titleTextColor="#FFFFFF"
@@ -16,8 +18,20 @@
 <!--        tự động fix thuộc tính trên thanh toolbar-->
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.appcompat.widget.SearchView
+
+        android:padding="2dp"
+        android:background="#a29bfe"
+        app:queryHint="search product"
         android:layout_below="@+id/toolbarMoblie"
+        android:id="@+id/search_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.appcompat.widget.SearchView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/search_mobile"
         android:id="@+id/recyclerviewMobile"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

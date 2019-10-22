@@ -5,7 +5,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,6 +48,12 @@ public class MoblieAdapter extends RecyclerView.Adapter<MoblieAdapter.MoblieHold
 
     @Override
     public void onBindViewHolder(@NonNull MoblieHolder holder, int position) {
+
+        // setAnimation
+        holder.imgMoblie.setAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_transition_animation));
+        // set linearlayout_animation_item_mobile
+        holder.linearlayout_animation_item_mobile.setAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_scale_animation));
+
         holder.txtNameMoblie.setText(mangSanphamMoblie.get(position).getTensp());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         holder.txtPriceMobile.setText("Giá : " + decimalFormat.format(mangSanphamMoblie.get(position).getGiasp()) + " Đ");
@@ -68,10 +76,11 @@ public class MoblieAdapter extends RecyclerView.Adapter<MoblieAdapter.MoblieHold
 
         ImageView imgMoblie;
         TextView txtNameMoblie, txtPriceMobile, txtDesMobile;
+        LinearLayout linearlayout_animation_item_mobile;
 
         public MoblieHolder(@NonNull final View itemView) {
             super(itemView);
-
+            linearlayout_animation_item_mobile = itemView.findViewById(R.id.linearlayout_animation_item_mobile);
             imgMoblie = itemView.findViewById(R.id.imageMobile);
             txtNameMoblie = itemView.findViewById(R.id.textviewNameMobile);
             txtPriceMobile = itemView.findViewById(R.id.textviewPriceMoblie);

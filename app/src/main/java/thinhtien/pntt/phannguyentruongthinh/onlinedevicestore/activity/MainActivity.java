@@ -177,6 +177,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        // su kien click item cho man hinh san pham moi nhat
+        ((SanphamApdater)mRecyclerViewmanhinhchinh.getAdapter()).setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClickItem(View view, int position) {
+                Intent intent = new Intent(MainActivity.this, DetailProductActivity.class);
+                intent.putExtra("InformationProduct",mangSanpham.get(position));
+                CheckConnection.showToast_Short(MainActivity.this,mangSanpham.get(position).getTensp());
+                startActivity(intent);
+            }
+        });
     }
 
     private void getDuLieuLoaiSanPham() {
@@ -263,5 +273,6 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerViewmanhinhchinh.setHasFixedSize(true);
         mRecyclerViewmanhinhchinh.setLayoutManager(new GridLayoutManager(MainActivity.this,2));
         mRecyclerViewmanhinhchinh.setAdapter(sanphamApdater);
+
     }
 }
