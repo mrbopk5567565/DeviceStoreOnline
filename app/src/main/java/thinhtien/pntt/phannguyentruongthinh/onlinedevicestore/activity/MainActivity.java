@@ -33,6 +33,7 @@ import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.fragment.
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.fragment.MobileFragment;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.adapter.SanphamApdater;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.api.modelapi.ResponseSanpham;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Cart;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Sanpham;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.util.OnItemClickListener;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.R;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Sanpham> mangSanpham;
     SanphamApdater sanphamApdater;
 
-    FragmentManager fragmentManager = getSupportFragmentManager();
+    public static ArrayList<Cart> mangCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -274,5 +275,10 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerViewmanhinhchinh.setLayoutManager(new GridLayoutManager(MainActivity.this,2));
         mRecyclerViewmanhinhchinh.setAdapter(sanphamApdater);
 
+        if (mangCart != null){
+
+        } else {
+            mangCart = new ArrayList<>();
+        }
     }
 }

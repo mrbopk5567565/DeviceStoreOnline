@@ -3,6 +3,7 @@ package thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,7 @@ import com.bumptech.glide.Glide;
 import java.text.DecimalFormat;
 
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.R;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Cart;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Sanpham;
 
 public class DetailProductActivity extends AppCompatActivity {
@@ -26,6 +28,14 @@ public class DetailProductActivity extends AppCompatActivity {
     Spinner spinnerDetail;
     Button btnAddCart;
 
+    // getInformaton
+    int id  = 0;
+    String tenchitiet = "";
+    int giachitiet = 0;
+    String hinhanhchitiet = "";
+    String mota = "";
+    int idsp = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,23 +45,57 @@ public class DetailProductActivity extends AppCompatActivity {
         ActionToolBar();
         GetInformation();
         CatchEventSppinner();
+        EventButtonCart();
+    }
+
+    private void EventButtonCart() {
+        btnAddCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MainActivity.mangCart.size() > 0){
+                    int quantity_new = Integer.parseInt(spinnerDetail.getSelectedItem().toString());
+                    Boolean exists = false;
+                    for (int i = 0; i < MainActivity.mangCart.size(); i++){
+                        if (MainActivity.mangCart.get(i).getId() == id){
+                            MainActivity.mangCart.get(i).setSoluong(MainActivity.mangCart.get(i).getSoluong() + quantity_new);
+                            if (MainActivity.mangCart.get(i).getSoluong() >= 10){
+                                MainActivity.mangCart.get(i).setSoluong(10);
+                            }
+                            MainActivity.mangCart.get(i).setGiasp(MainActivity.mangCart.get(i).getSoluong() * giachitiet);
+                            exists = true;
+                        }
+                    }
+                    if (exists == false){
+                        int quantity = Integer.parseInt(spinnerDetail.getSelectedItem().toString());
+                        long totalPrice = quantity * giachitiet;
+                        MainActivity.mangCart.add(new Cart(id,tenchitiet,totalPrice,hinhanhchitiet,quantity));
+                    }
+                } else {
+                    int quantity = Integer.parseInt(spinnerDetail.getSelectedItem().toString());
+                    long totalPrice = quantity * giachitiet;
+                    MainActivity.mangCart.add(new Cart(id,tenchitiet,totalPrice,hinhanhchitiet,quantity));
+                }
+                Intent intent = new Intent(DetailProductActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void CatchEventSppinner() {
-        Integer[] soluong = new Integer[]{1,2,3,4,5,6,7,8,9,10};
+        Integer[] soluongSpinner = new Integer[]{1,2,3,4,5,6,7,8,9,10};
         ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<Integer>(this,
                                             android.R.layout.simple_spinner_dropdown_item,
-                                            soluong);
+                                            soluongSpinner);
         spinnerDetail.setAdapter(arrayAdapter);
     }
 
     private void GetInformation() {
-        int id  = 0;
-        String tenchitiet = "";
-        int giachitiet = 0;
-        String hinhanhchitiet = "";
-        String mota = "";
-        int idsp = 0;
+//        int id  = 0;
+//        String tenchitiet = "";
+//        int giachitiet = 0;
+//        String hinhanhchitiet = "";
+//        String mota = "";
+//        int idsp = 0;
 
         Sanpham sanpham = (Sanpham) getIntent().getSerializableExtra("InformationProduct");
         id = sanpham.getId();
