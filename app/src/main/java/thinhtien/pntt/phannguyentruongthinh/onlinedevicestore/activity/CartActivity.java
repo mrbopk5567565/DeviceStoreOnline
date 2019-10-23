@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.R;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.adapter.CartAdapter;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Cart;
+import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.util.CheckConnection;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.util.OnItemClickListener;
 
 public class CartActivity extends AppCompatActivity {
@@ -40,6 +42,30 @@ public class CartActivity extends AppCompatActivity {
         CheckData();
         EvenUtil();
         CatchOnItemRecyclerview();
+        EventButton();
+    }
+
+    private void EventButton() {
+        btnContinueShopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CartActivity.this, MainActivity.class);
+                startActivity(intent);
+//                finish();
+            }
+        });
+
+        btnCompletePayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MainActivity.mangCart.size() > 0){
+                    Intent intent = new Intent(CartActivity.this, InfoConsumerActivity.class);
+                    startActivity(intent);
+                } else {
+                    CheckConnection.showToast_Short(CartActivity.this,"Your cart is empty. Continue shopping to find a product");
+                }
+            }
+        });
     }
 
     private void CatchOnItemRecyclerview() {
