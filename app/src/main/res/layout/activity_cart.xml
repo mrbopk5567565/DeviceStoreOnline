@@ -9,7 +9,6 @@
     tools:context=".activity.CartActivity">
 
     <androidx.appcompat.widget.Toolbar
-        app:navigationIcon="@drawable/ic_shopping_cart_black_24dp"
         app:titleTextColor="#FFFFFF"
         android:background="#69BFE3"
         app:title="Cart"
@@ -46,7 +45,7 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:layout_weight="1"
-        android:weightSum="2"
+        android:weightSum="3"
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <LinearLayout
@@ -56,20 +55,21 @@
             android:layout_height="match_parent">
             <TextView
                 android:textColor="#e74c3c"
-                android:text="Total"
-                android:textSize="30sp"
+                android:text="Total :"
+                android:textSize="24sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="match_parent">
             <TextView
+                android:id="@+id/textviewTotalPrice"
                 android:textColor="#e74c3c"
                 android:text="Price"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
