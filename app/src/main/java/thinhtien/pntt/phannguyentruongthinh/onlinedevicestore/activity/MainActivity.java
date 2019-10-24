@@ -5,9 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,10 +27,6 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
-import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.fragment.ContactFragment;
-import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.fragment.InfoFragment;
-import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.fragment.LaptopFragment;
-import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.fragment.MobileFragment;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.adapter.SanphamApdater;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.api.modelapi.ResponseSanpham;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Cart;
@@ -110,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         ((LoaispApdapter)mRecyclerViewMenu.getAdapter()).setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onClickItem(View view, int position) {
-                Toast.makeText(MainActivity.this, mangLoaiSp.get(position).getTenLoaiSp(), Toast.LENGTH_SHORT).show();
                 switch (position){
                     case 0:
                         if (CheckConnection.isNetworkAvailable(MainActivity.this)){
@@ -161,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 4:
                         if (CheckConnection.isNetworkAvailable(MainActivity.this)){
-                            Intent intent = new Intent(MainActivity.this, infomationActivity.class);
+                            Intent intent = new Intent(MainActivity.this, InfomationActivity.class);
                             startActivity(intent);
                         } else {
                             CheckConnection.showToast_Short(MainActivity.this,"Bạn hãy kiểm tra lại kết nối" );
@@ -224,18 +216,10 @@ public class MainActivity extends AppCompatActivity {
                         loaispApdapter.notifyDataSetChanged();
                     }
                     mangLoaiSp.add(3,new Loaisp(3,"Contact","http://192.168.1.103:8888/devicestore/image/baseline_contacts_black_48dp.png"));
-                    mangLoaiSp.add(4,new Loaisp(4,"Infomation","http://192.168.1.103:8888/devicestore/image/baseline_info_black_48dp.png"));
+                    mangLoaiSp.add(4,new Loaisp(4,"Information","http://192.168.1.103:8888/devicestore/image/baseline_info_black_48dp.png"));
                 }
             }
         });
-
-//        // su kien click item cho recyclerview menu
-//        ((LoaispApdapter)mRecyclerViewMenu.getAdapter()).setOnItemClickListener(new OnItemClickListener() {
-//            @Override
-//            public void onClickItem(View view, int position) {
-//            }
-//        });
-
     }
 
     private void ActionViewFlipper() {

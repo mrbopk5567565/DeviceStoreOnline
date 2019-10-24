@@ -1,16 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/bg_consumer_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.fragment.ContactFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textviewcontact"
-        android:textSize="30sp"
-        android:textColor="#f20"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarContact"
+        app:titleTextColor="#FFFFFF"
+        android:background="#69BFE3"
+        app:title="Contact"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Thinh" />
-</FrameLayout>
+        android:layout_height="?attr/actionBarSize">
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:textStyle="bold"
+        android:textColor="@color/colordefault"
+        android:background="@drawable/bg_consumer"
+        android:textSize="30sp"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="Contact me"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:background="@drawable/bg_consumer"
+        android:textColor="@color/colordefault"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:drawableLeft="@drawable/contact_boy"
+        android:textSize="20sp"
+        android:text="Name : Phan Nguyễn Trường Thịnh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:background="@drawable/bg_consumer"
+        android:textColor="@color/colordefault"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:drawableLeft="@drawable/contact_gmail"
+        android:textSize="20sp"
+        android:text="Email : pntt96gl@gmail.com"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:background="@drawable/bg_consumer"
+        android:textColor="@color/colordefault"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:drawableLeft="@drawable/contact_phone"
+        android:textSize="20sp"
+        android:text="Phone : 035 338 3108"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

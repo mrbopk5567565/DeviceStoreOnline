@@ -53,14 +53,14 @@ public class MobileFragment extends Fragment {
     int page = 1;
     int id_mobile = 0;
     SanphamViewModel loaispViewModel;
-    View viewfooter;
+
     Boolean isLoading = false;
     Boolean limitData = false;
     ProgressBar progressBar;
     int firstItem, visibleItem, totalItem;
     LinearLayoutManager linearLayoutManager;
     SearchView searchView;
-//    mHandler mHandler;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -134,9 +134,7 @@ public class MobileFragment extends Fragment {
                 totalItem = linearLayoutManager.getItemCount();
                 if ((firstItem + visibleItem == totalItem) && isLoading && limitData == false){
                     isLoading = false;
-//                    Log.d("BBB","1");
                     FetchData();
-//                    GetData(++page + "",1);
                 }
             }
         });
@@ -144,19 +142,9 @@ public class MobileFragment extends Fragment {
 
     private void FetchData() {
         progressBar.setVisibility(View.VISIBLE);
-//        Log.d("BBB","2");
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                ((MobileActivity)getActivity()).setListenId(new OnListenId() {
-//                    @Override
-//                    public void onChangeId(Integer idsp) {
-////                        Log.d("BBB","3");
-//                        GetData(++page + "",idsp);
-//                        progressBar.setVisibility(View.GONE);
-////                        Log.d("BBB","4");
-//                    }
-//                });
                 GetData(++page + "",id_mobile);
                 progressBar.setVisibility(View.GONE);
             }
@@ -215,44 +203,9 @@ public class MobileFragment extends Fragment {
         mangMobile = new ArrayList<>();
         moblieAdapter = new MoblieAdapter(mangMobile,getContext());
         recyclerViewMobile.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerViewMobile.setAdapter(moblieAdapter);
-//        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-////                LayoutInflater.from(getActivity());
-//        viewfooter = inflater.inflate(R.layout.progressbar,null);
-//        mHandler = new mHandler();
         progressBar = view.findViewById(R.id.progressbarMobile);
         linearLayoutManager = (LinearLayoutManager) recyclerViewMobile.getLayoutManager();
         loaispViewModel = new SanphamViewModel();
         searchView =  view.findViewById(R.id.search_mobile);
     }
-
-//    public class mHandler extends Handler{
-//        @Override
-//        public void handleMessage(@NonNull Message msg) {
-//            super.handleMessage(msg);
-//            switch (msg.what){
-//                case 0:
-//                    recyclerViewMobile.addView(viewfooter, mangMobile.size());
-//                    break;
-//                case 1:
-//                    ((MobileActivity)getActivity()).setListenId(new OnListenId() {
-//                        @Override
-//                        public void onChangeId(Integer idsp) {
-//                            page++;
-//                            GetData(String.valueOf(page),idsp);
-//                            isLoading = false;
-//                        }
-//                    });
-//                    break;
-//            }
-//        }
-//    }
-//
-//    public class ThreadData extends Thread{
-//        @Override
-//        public void run() {
-//            super.run();
-//
-//        }
-//    }
 }
