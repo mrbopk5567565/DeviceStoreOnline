@@ -188,7 +188,7 @@ public class MobileFragment extends Fragment {
                     enableLoadmore.setValue(true);
                 } else {
                     limitData = true;
-                    Toast.makeText(getActivity(), "Đã hết dữ liệu", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "Đã hết dữ liệu", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -217,6 +217,4 @@ public class MobileFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressbarMobile);
         searchView = view.findViewById(R.id.search_mobile);
     }
-
-
 }

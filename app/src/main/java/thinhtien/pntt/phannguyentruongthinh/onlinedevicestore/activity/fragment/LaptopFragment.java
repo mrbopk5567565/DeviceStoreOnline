@@ -72,7 +72,9 @@ public class LaptopFragment extends Fragment {
                 }
             });
             SearchLaptop();
-            LoadMoreData();
+            if (recyclerViewLaptop != null){
+                LoadMoreData();
+            }
         } else {
             CheckConnection.showToast_Short(getActivity(),"Check your connection !!!");
             getActivity().finish();
@@ -119,9 +121,9 @@ public class LaptopFragment extends Fragment {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                firstItem = linearLayoutManager.findFirstVisibleItemPosition();
-                visibleItem = linearLayoutManager.getChildCount();
-                totalItem = linearLayoutManager.getItemCount();
+                firstItem = ((LinearLayoutManager)(recyclerView.getLayoutManager())).findFirstVisibleItemPosition();
+                visibleItem = (recyclerView.getLayoutManager()).getChildCount();
+                totalItem = (recyclerView.getLayoutManager()).getItemCount();
                 if ((firstItem + visibleItem == totalItem) && isLoading && (limitData == false)){
                     isLoading = false;
                     FetchData();
@@ -164,7 +166,7 @@ public class LaptopFragment extends Fragment {
                     }
                 } else {
                     limitData = true;
-                    Toast.makeText(getActivity(), "Đã hết dữ liệu", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "Đã hết dữ liệu", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -190,8 +192,7 @@ public class LaptopFragment extends Fragment {
         recyclerViewLaptop.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewLaptop.setAdapter(laptopAdapter);
         sanphamViewModel = new SanphamViewModel();
-//        getLifecycle().addObserver(loaiSPViewModel);
-        linearLayoutManager = (LinearLayoutManager) recyclerViewLaptop.getLayoutManager();
+        linearLayoutManager = new LinearLayoutManager(getActivity());
         progressBar = view.findViewById(R.id.progressbarLaptop);
         searchView = view.findViewById(R.id.search_laptop);
     }

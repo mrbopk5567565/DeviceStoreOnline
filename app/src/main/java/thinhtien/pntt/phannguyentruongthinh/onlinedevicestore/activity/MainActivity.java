@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this,MainActivity.class);
                             startActivity(intent);
                         } else {
-                            CheckConnection.showToast_Short(MainActivity.this,"Bạn hãy kiểm tra lại kết nối" );
+                            CheckConnection.showToast_Short(MainActivity.this,"Check your connection !!!" );
                         }
                         mDrawerLayout.closeDrawer(GravityCompat.START);
                         break;
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 //                            fragmentTransaction.add(R.id.moblieContainer,mobileFragment);
 //                            fragmentTransaction.commit();
                         } else {
-                            CheckConnection.showToast_Short(MainActivity.this,"Bạn hãy kiểm tra lại kết nối" );
+                            CheckConnection.showToast_Short(MainActivity.this,"Check your connection !!!" );
                         }
                         mDrawerLayout.closeDrawer(GravityCompat.START);
                         break;
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtras(bundle);
                             startActivity(intent);
                         } else {
-                            CheckConnection.showToast_Short(MainActivity.this,"Bạn hãy kiểm tra lại kết nối" );
+                            CheckConnection.showToast_Short(MainActivity.this,"Check your connection !!!" );
                         }
                         mDrawerLayout.closeDrawer(GravityCompat.START);
                         break;
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this,ContactActivity.class);
                             startActivity(intent);
                         } else {
-                            CheckConnection.showToast_Short(MainActivity.this,"Bạn hãy kiểm tra lại kết nối" );
+                            CheckConnection.showToast_Short(MainActivity.this,"Check your connection !!!" );
                         }
                         mDrawerLayout.closeDrawer(GravityCompat.START);
                         break;
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, InfomationActivity.class);
                             startActivity(intent);
                         } else {
-                            CheckConnection.showToast_Short(MainActivity.this,"Bạn hãy kiểm tra lại kết nối" );
+                            CheckConnection.showToast_Short(MainActivity.this,"Check your connection !!!" );
                         }
                         mDrawerLayout.closeDrawer(GravityCompat.START);
                         break;
