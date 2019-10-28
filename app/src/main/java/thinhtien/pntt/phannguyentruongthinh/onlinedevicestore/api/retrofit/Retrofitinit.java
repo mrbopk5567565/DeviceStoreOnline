@@ -30,11 +30,12 @@ public class Retrofitinit {
                                                     .readTimeout(10, TimeUnit.SECONDS)
                                                     .writeTimeout(10,TimeUnit.SECONDS)
                                                     .connectTimeout(10,TimeUnit.SECONDS)
+                                                    .retryOnConnectionFailure(true)
                                                     .build();
 
         retrofit = new Retrofit.Builder()
                                 .addConverterFactory(GsonConverterFactory.create(gson))
-                                .baseUrl("http://192.168.1.103:8888/devicestore/")
+                                .baseUrl("https://truongthinh96.000webhostapp.com/devicestore/")  //http://172.16.1.72:8888/devicestore/ //192.168.1.103  //https://truongthinh96.000webhostapp.com/devicestore/
                                 .client(okHttpClient)
                                 .build();
         return retrofit;

@@ -1,5 +1,7 @@
 package thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
@@ -52,7 +54,7 @@ public class SanphamRepository {
 
             @Override
             public void onFailure(Call<List<ResponseSanpham>> call, Throwable t) {
-
+                Log.d("BBB",t.getMessage());
             }
         });
         return mutableLiveData;

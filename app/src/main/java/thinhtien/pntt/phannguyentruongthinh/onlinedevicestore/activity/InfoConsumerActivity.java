@@ -90,9 +90,9 @@ public class InfoConsumerActivity extends AppCompatActivity {
                                                 if (responseOrder.getSuccess()){
                                                     MainActivity.mangCart.clear();
                                                     Toast.makeText(InfoConsumerActivity.this, responseOrder.getMessage(), Toast.LENGTH_SHORT).show();
-//                                                    startActivity(new Intent(InfoConsumerActivity.this, MainActivity.class));
-//                                                    Toast.makeText(InfoConsumerActivity.this, "Do you want anything else", Toast.LENGTH_SHORT).show();
-                                                    finish();
+
+                                                    Toast.makeText(InfoConsumerActivity.this, "Do you want anything else", Toast.LENGTH_SHORT).show();
+
                                                 } else {
                                                     Toast.makeText(InfoConsumerActivity.this, responseOrder.getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
@@ -101,13 +101,14 @@ public class InfoConsumerActivity extends AppCompatActivity {
                                     });
 
                                     // of screen information Consumer
-                                    startActivity(new Intent(InfoConsumerActivity.this, MainActivity.class));
-                                    Toast.makeText(InfoConsumerActivity.this, "Do you want anything else", Toast.LENGTH_SHORT).show();
+//                                    startActivity(new Intent(InfoConsumerActivity.this, MainActivity.class));
+//                                    Toast.makeText(InfoConsumerActivity.this, "Do you want anything else", Toast.LENGTH_SHORT).show();
 
-////
                                 } else {
                                     Toast.makeText(InfoConsumerActivity.this, "Confirm Fail", Toast.LENGTH_SHORT).show();
                                 }
+                                startActivity(new Intent(InfoConsumerActivity.this, MainActivity.class));
+                                finish();
                             }
                         }
                     });

@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activity.fragment.MobileFragment">
 
-
-
     <androidx.appcompat.widget.Toolbar
         android:background="#69BFE3"
         app:titleTextColor="#FFFFFF"

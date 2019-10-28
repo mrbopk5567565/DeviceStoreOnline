@@ -105,7 +105,6 @@ public class MoblieAdapter extends RecyclerView.Adapter<MoblieAdapter.MoblieHold
 
                 mangSanphamMoblieFiltered = (ArrayList<Sanpham>) filterResults.values;
                 notifyDataSetChanged();
-
             }
         };
     }

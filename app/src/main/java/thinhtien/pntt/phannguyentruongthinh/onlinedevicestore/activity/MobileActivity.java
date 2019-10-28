@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.R;
-import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.activity.fragment.MobileFragment;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.util.OnListenId;
 
 public class MobileActivity extends AppCompatActivity {
@@ -25,9 +24,14 @@ public class MobileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        id_moblie = bundle.getInt("idsp", -1);
+//        MobileFragment mobileFragment = (MobileFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMobile);
+//        if (mobileFragment != null && mobileFragment.isInLayout()){
+//            onListenId = mobileFragment;
+//        }
 
+        id_moblie = bundle.getInt("idsp", -1);
         onListenId.onChangeId(id_moblie);
+
     }
 
     @Override
@@ -50,4 +54,5 @@ public class MobileActivity extends AppCompatActivity {
     public void setListenId(OnListenId onListenId){
         this.onListenId = onListenId;
     }
+
 }

@@ -45,7 +45,7 @@ public class LaptopFragment extends Fragment {
     RecyclerView recyclerViewLaptop;
     LaptopAdapter laptopAdapter;
     ArrayList<Sanpham> mangLaptop;
-    SanphamViewModel loaiSPViewModel;
+    SanphamViewModel sanphamViewModel;
     Boolean isLoading = false;
     Boolean limitData = false;
     int page = 1;
@@ -56,8 +56,7 @@ public class LaptopFragment extends Fragment {
     SearchView searchView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_laptop, container, false);
 
@@ -75,7 +74,7 @@ public class LaptopFragment extends Fragment {
             SearchLaptop();
             LoadMoreData();
         } else {
-            CheckConnection.showToast_Short(getActivity(),"Xin kiểm tra lại kết nối");
+            CheckConnection.showToast_Short(getActivity(),"Check your connection !!!");
             getActivity().finish();
         }
         return view;
@@ -143,7 +142,7 @@ public class LaptopFragment extends Fragment {
     }
 
     private void getData(String page, Integer id_laptop) {
-        loaiSPViewModel.checkLoaiSanPhamLaptop(page,id_laptop).observe(getActivity(), new Observer<List<ResponseSanpham>>() {
+        sanphamViewModel.checkLoaiSanPhamLaptop(page,id_laptop).observe(getActivity(), new Observer<List<ResponseSanpham>>() {
             @Override
             public void onChanged(List<ResponseSanpham> responseSanphams) {
                 if (responseSanphams != null && responseSanphams.size() > 0){
@@ -190,7 +189,8 @@ public class LaptopFragment extends Fragment {
         laptopAdapter = new LaptopAdapter(mangLaptop,getActivity());
         recyclerViewLaptop.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewLaptop.setAdapter(laptopAdapter);
-        loaiSPViewModel = new SanphamViewModel();
+        sanphamViewModel = new SanphamViewModel();
+//        getLifecycle().addObserver(loaiSPViewModel);
         linearLayoutManager = (LinearLayoutManager) recyclerViewLaptop.getLayoutManager();
         progressBar = view.findViewById(R.id.progressbarLaptop);
         searchView = view.findViewById(R.id.search_laptop);

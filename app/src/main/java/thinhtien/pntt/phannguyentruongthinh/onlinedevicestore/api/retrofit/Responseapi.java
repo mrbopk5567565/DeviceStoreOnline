@@ -14,7 +14,6 @@ import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.api.modelapi.Respo
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.api.modelapi.ResponseLoaisp;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.api.modelapi.ResponseOrder;
 import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.api.modelapi.ResponseSanpham;
-import thinhtien.pntt.phannguyentruongthinh.onlinedevicestore.model.Cart;
 
 public interface Responseapi {
 
