@@ -88,9 +88,8 @@ public class InfoConsumerActivity extends AppCompatActivity {
                                         public void onChanged(ResponseOrder responseOrder) {
                                             if (responseOrder != null){
                                                 if (responseOrder.getSuccess()){
-                                                    MainActivity.mangCart.clear();
+//                                                    MainActivity.mangCart.clear();
                                                     Toast.makeText(InfoConsumerActivity.this, responseOrder.getMessage(), Toast.LENGTH_SHORT).show();
-
                                                     Toast.makeText(InfoConsumerActivity.this, "Do you want anything else", Toast.LENGTH_SHORT).show();
 
                                                 } else {
@@ -107,6 +106,7 @@ public class InfoConsumerActivity extends AppCompatActivity {
                                 } else {
                                     Toast.makeText(InfoConsumerActivity.this, "Confirm Fail", Toast.LENGTH_SHORT).show();
                                 }
+                                MainActivity.mangCart.clear();
                                 startActivity(new Intent(InfoConsumerActivity.this, MainActivity.class));
                                 finish();
                             }
