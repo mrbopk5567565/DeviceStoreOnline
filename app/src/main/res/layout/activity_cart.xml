@@ -10,7 +10,7 @@
 
     <androidx.appcompat.widget.Toolbar
         app:titleTextColor="#FFFFFF"
-        android:background="#69BFE3"
+        android:background="@color/colordefault"
         app:title="Cart"
         android:id="@+id/toolbarCart"
         android:layout_width="match_parent"
